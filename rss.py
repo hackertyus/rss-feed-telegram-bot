@@ -41,7 +41,10 @@ def create_feed_checker(feed_url):
         entry = FEED.entries[0]
         if entry.id != db.get_link(feed_url).link:
                        # ↓ Edit this message as your needs.
-            message = f"**{entry.title}**\n```{entry.link}```"
+            if "turktorrent.us" in enid:   
+                message = f"**{entry.title}**\nhttps://turktorrent.us\n{entry.description}"
+            else:
+                message = f"**{entry.title}**\n{entry.link}\n{entry.description}"
             try:
                 app.send_message(log_channel, message)
                 db.update_link(feed_url, entry.id)
